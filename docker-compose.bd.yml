@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  banco_generico_maria_db:
+    container_name: banco_generico_maria_db
+    image: "mariadb:10.5.8"
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: teste
