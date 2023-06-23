@@ -1,7 +1,6 @@
-package br.com.loginapi.dto;
+package br.com.loginapi.dto.update;
 
-public record AddressResponseDTO(
-        Long id,
+public record AddressUpdateDTO(
         String street,
         Integer number,
         String neightborhood,

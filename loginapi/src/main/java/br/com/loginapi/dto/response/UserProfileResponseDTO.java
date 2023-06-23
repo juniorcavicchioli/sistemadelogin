@@ -1,6 +1,6 @@
-package br.com.loginapi.dto;
+package br.com.loginapi.dto.response;
 
-import br.com.loginapi.model.Address;
+import br.com.loginapi.dto.response.AddressResponseDTO;
 
 public record UserProfileResponseDTO(
         Long id,

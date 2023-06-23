@@ -2,7 +2,8 @@ package br.com.loginapi.controller;
 
 
 import br.com.loginapi.dto.UserRegisterDTO;
-import br.com.loginapi.dto.UserResponseDTO;
+import br.com.loginapi.dto.response.UserResponseDTO;
+import br.com.loginapi.dto.update.UserUpdateDTO;
 import br.com.loginapi.model.User;
 import br.com.loginapi.service.UserService;
 import jakarta.validation.Valid;
@@ -49,8 +50,9 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public UserResponseDTO update(@PathVariable Long id, @RequestBody @Valid User user, BindingResult result){
+    public UserResponseDTO update(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO userDTO, BindingResult result){
         getUser(id);
+        User user = userService.convertUpdateDTOToUser(userDTO);
         return userService.convertToUserResponseDTO(userService.updateUser(id,user));
     }
 

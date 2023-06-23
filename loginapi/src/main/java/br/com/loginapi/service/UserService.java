@@ -1,8 +1,9 @@
 package br.com.loginapi.service;
 
-import br.com.loginapi.dto.UserProfileResponseDTO;
+import br.com.loginapi.dto.response.UserProfileResponseDTO;
 import br.com.loginapi.dto.UserRegisterDTO;
-import br.com.loginapi.dto.UserResponseDTO;
+import br.com.loginapi.dto.response.UserResponseDTO;
+import br.com.loginapi.dto.update.UserUpdateDTO;
 import br.com.loginapi.model.User;
 import br.com.loginapi.model.UserProfile;
 import br.com.loginapi.repository.UserRepository;
@@ -50,15 +51,30 @@ public class UserService {
     }
 
     public User updateUser(Long id, User user) {
-        // TODO : ajustar o recebimento de um usuario para um dto.
         User findedUser = getUserById(id).get();
-        user.setId(id);
-        user.getUserProfile().setId(findedUser.getUserProfile().getId());
-        user.getUserProfile().getAddress().setId(findedUser.getUserProfile().getAddress().getId());
-        return userRepository.save(user);
+        findedUser.setName(user.getName());
+        findedUser.setEmail(user.getEmail());
+
+        // TODO : um meio de alterar a senha
+        findedUser.setUserProfile(
+                userProfileService.updateUserProfile(
+                        id,
+                        user.getUserProfile()
+                        ));
+
+        return userRepository.save(findedUser);
     }
 
     public void destroyUser(User user) {
         userRepository.delete(user);
+    }
+
+    public User convertUpdateDTOToUser(UserUpdateDTO userDTO) {
+        return new User(null,
+                userDTO.name(),
+                userDTO.email(),
+                null,
+                userProfileService.convertUpdateDTOToUserService(userDTO.userProfile())
+        );
     }
 }

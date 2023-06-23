@@ -36,5 +36,6 @@ public class Address {
     private String complement;
 
     @OneToOne
+    @Transient
     private User user;
 }

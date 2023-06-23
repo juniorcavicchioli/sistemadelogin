@@ -26,5 +26,6 @@ public class UserProfile {
     private Address address;
 
     @OneToOne
+    @Transient
     private User user;
 }
